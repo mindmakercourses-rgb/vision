@@ -22,12 +22,24 @@ export function SignUpForm() {
     setError(null)
 
     const supabase = createClient()
+
+    // Always derive the redirect URL from the current page origin so the
+    // confirmation link works regardless of environment (local, preview, prod).
+    // NEXT_PUBLIC_SITE_URL is only used as a last-resort fallback when the
+    // browser origin is an internal proxy (e.g. localhost inside v0 sandbox).
+    const origin = window.location.origin
+    const isInternalOrigin =
+      origin.includes("localhost") || origin.includes("v0.app") || origin.includes("127.0.0.1")
+    const redirectOrigin = isInternalOrigin
+      ? (process.env.NEXT_PUBLIC_SITE_URL ?? origin)
+      : origin
+    const emailRedirectTo = `${redirectOrigin}/auth/callback`
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo:
-          process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${window.location.origin}/auth/callback`,
+        emailRedirectTo,
         data: { full_name: fullName },
       },
     })
