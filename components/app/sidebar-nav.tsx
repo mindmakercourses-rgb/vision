@@ -45,6 +45,9 @@ import {
   FlaskConical,
   GraduationCap,
   Network,
+  Wand2,
+  Wrench,
+  MemoryStick,
 } from "lucide-react"
 
 type NavItem = {
@@ -84,8 +87,10 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     label: "AI Platform",
     items: [
       { href: "/app/ai-agents", label: "AI Agents Studio", icon: Bot },
+      { href: "/app/prompt-studio", label: "Prompt Studio", icon: Wand2 },
+      { href: "/app/ai-tools", label: "AI Tools Studio", icon: Wrench },
+      { href: "/app/ai-memory", label: "AI Memory Studio", icon: MemoryStick },
       { href: "/app/knowledge-base", label: "Knowledge Base", icon: BookOpen },
-      { href: "/app/ai-insights", label: "AI Insights", icon: Sparkles },
       { href: "/app/ai-os", label: "AI Command Center", icon: Brain },
       { href: "/app/autonomous", label: "Autonomous Mode", icon: Zap },
       { href: "/app/innovation-lab", label: "Innovation Lab", icon: FlaskConical },
@@ -107,6 +112,7 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
       { href: "/app/reports", label: "Reports", icon: FileText },
       { href: "/app/bi", label: "Business Intelligence", icon: TrendingUp },
       { href: "/app/ai-insights", label: "AI Insights", icon: Sparkles },
+      { href: "/app/ai-insights", label: "Executive Dashboard", icon: TrendingUp },
     ],
   },
   {
