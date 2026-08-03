@@ -1,20 +1,41 @@
-import { cn } from "@/lib/utils"
+import Image from 'next/image'
+import { cn } from '@/lib/utils'
 
-export function VisionLogo({ className }: { className?: string }) {
-  return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <div className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-        <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden="true">
-          <path
-            d="M12 4C6.5 4 2.7 8.5 1 12c1.7 3.5 5.5 8 11 8s9.3-4.5 11-8c-1.7-3.5-5.5-8-11-8Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-          />
-          <circle cx="12" cy="12" r="3" fill="currentColor" />
-        </svg>
+interface VisionLogoProps {
+  className?: string
+  compact?: boolean
+  withText?: boolean
+}
+
+export function VisionLogo({ className, compact = false, withText = false }: VisionLogoProps) {
+  if (compact) {
+    // Compact logo icon with optional text
+    return (
+      <div className={cn('flex items-center gap-3', className)}>
+        <Image
+          src="/vision-logo.png"
+          alt="Vision CRM"
+          width={48}
+          height={48}
+          priority
+          className="h-12 w-12 object-contain"
+        />
+        {withText && <span className="text-lg font-bold text-foreground">Vision CRM</span>}
       </div>
-      <span className="text-[15px] font-semibold tracking-tight">Vision</span>
+    )
+  }
+
+  // Full logo image
+  return (
+    <div className={cn('flex items-center gap-2', className)}>
+      <Image
+        src="/vision-logo.png"
+        alt="Vision CRM - AI SaaS Platform"
+        width={240}
+        height={96}
+        priority
+        className="h-10 w-auto object-contain"
+      />
     </div>
   )
 }

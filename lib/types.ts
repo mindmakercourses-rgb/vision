@@ -48,3 +48,34 @@ export const ROLE_LABELS: Record<Role, string> = {
   admin: "Admin",
   member: "Member",
 }
+
+export type Contact = {
+  id: string
+  org_id: string
+  first_name: string
+  last_name: string
+  email?: string
+  phone?: string
+  company_id?: string
+  owner_id?: string
+  status: "prospect" | "active" | "engaged" | "inactive"
+  lifecycle_stage: "lead" | "qualified" | "customer" | "closed"
+  notes?: string
+  tags?: string[]
+  created_at: string
+  updated_at?: string
+}
+
+export const CONTACT_STATUS_COLORS: Record<Contact['status'], string> = {
+  prospect: "bg-slate-100 text-slate-700",
+  active: "bg-blue-100 text-blue-700",
+  engaged: "bg-green-100 text-green-700",
+  inactive: "bg-gray-100 text-gray-700",
+}
+
+export const LIFECYCLE_STAGE_COLORS: Record<Contact['lifecycle_stage'], string> = {
+  lead: "bg-orange-100 text-orange-700",
+  qualified: "bg-yellow-100 text-yellow-700",
+  customer: "bg-purple-100 text-purple-700",
+  closed: "bg-red-100 text-red-700",
+}

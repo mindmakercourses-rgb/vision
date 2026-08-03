@@ -50,73 +50,43 @@
 
 :root {
   color-scheme: light;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.18 0.01 265);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.01 265);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.01 265);
-  --primary: oklch(0.55 0.2 262);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.97 0.005 265);
-  --secondary-foreground: oklch(0.22 0.01 265);
-  --muted: oklch(0.97 0.005 265);
-  --muted-foreground: oklch(0.53 0.015 265);
-  --accent: oklch(0.96 0.01 262);
-  --accent-foreground: oklch(0.4 0.15 262);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.92 0.005 265);
-  --input: oklch(0.92 0.005 265);
-  --ring: oklch(0.55 0.2 262);
-  --chart-1: oklch(0.55 0.2 262);
-  --chart-2: oklch(0.65 0.16 200);
-  --chart-3: oklch(0.7 0.15 155);
-  --chart-4: oklch(0.75 0.15 85);
-  --chart-5: oklch(0.65 0.2 30);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0.003 265);
-  --sidebar-foreground: oklch(0.3 0.01 265);
-  --sidebar-primary: oklch(0.55 0.2 262);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.96 0.008 265);
-  --sidebar-accent-foreground: oklch(0.22 0.01 265);
-  --sidebar-border: oklch(0.92 0.005 265);
-  --sidebar-ring: oklch(0.55 0.2 262);
-}
-
-.dark {
-  color-scheme: dark;
-  --background: oklch(0.16 0.008 265);
-  --foreground: oklch(0.96 0.003 265);
-  --card: oklch(0.2 0.01 265);
-  --card-foreground: oklch(0.96 0.003 265);
-  --popover: oklch(0.2 0.01 265);
-  --popover-foreground: oklch(0.96 0.003 265);
-  --primary: oklch(0.62 0.19 262);
-  --primary-foreground: oklch(0.98 0.003 265);
-  --secondary: oklch(0.26 0.012 265);
-  --secondary-foreground: oklch(0.96 0.003 265);
-  --muted: oklch(0.26 0.012 265);
-  --muted-foreground: oklch(0.68 0.015 265);
-  --accent: oklch(0.3 0.03 262);
-  --accent-foreground: oklch(0.9 0.02 262);
-  --destructive: oklch(0.62 0.2 25);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.62 0.19 262);
-  --chart-1: oklch(0.62 0.19 262);
-  --chart-2: oklch(0.7 0.15 200);
-  --chart-3: oklch(0.72 0.15 155);
-  --chart-4: oklch(0.78 0.15 85);
-  --chart-5: oklch(0.68 0.2 30);
-  --sidebar: oklch(0.18 0.009 265);
-  --sidebar-foreground: oklch(0.85 0.005 265);
-  --sidebar-primary: oklch(0.62 0.19 262);
-  --sidebar-primary-foreground: oklch(0.98 0.003 265);
-  --sidebar-accent: oklch(0.26 0.012 265);
-  --sidebar-accent-foreground: oklch(0.96 0.003 265);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.62 0.19 262);
+  /* Light 3D theme: soft whites, cool grays, Vision brand blue accent */
+  --background: #fafbfc;
+  --foreground: #0f1419;
+  --card: #ffffff;
+  --card-foreground: #0f1419;
+  --popover: #ffffff;
+  --popover-foreground: #0f1419;
+  /* Vision brand blue: bright, energetic */
+  --primary: #0066ff;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f4f8;
+  --secondary-foreground: #1a202c;
+  --muted: #e8ecf1;
+  --muted-foreground: #64748b;
+  --accent: #cfe9ff;
+  --accent-foreground: #0051d5;
+  --destructive: #dc2626;
+  /* Subtle light borders for 3D layering effect */
+  --border: #e2e8f0;
+  --input: #f1f5f9;
+  --ring: #0066ff;
+  /* Charts: vision blue dominant with complementary tones */
+  --chart-1: #0066ff;
+  --chart-2: #00b4d8;
+  --chart-3: #0096d6;
+  --chart-4: #0077be;
+  --chart-5: #0055a4;
+  --radius: 10px;
+  /* Sidebar: slightly lighter than background with subtle depth */
+  --sidebar: #f8f9fa;
+  --sidebar-foreground: #1a202c;
+  --sidebar-primary: #0066ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8ecf1;
+  --sidebar-accent-foreground: #1a202c;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #0066ff;
 }
 
 @layer base {
@@ -125,5 +95,39 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* 3D depth effects: subtle shadows for elevation */
+  @supports (box-shadow: 0 1px 3px color-mix(in srgb, #000 2%, transparent)) {
+    :root {
+      --shadow-sm: 0 1px 2px color-mix(in srgb, #000 4%, transparent),
+                   0 1px 1px color-mix(in srgb, #000 1%, transparent);
+      --shadow-md: 0 4px 6px color-mix(in srgb, #000 5%, transparent),
+                   0 2px 4px color-mix(in srgb, #000 2%, transparent);
+      --shadow-lg: 0 10px 15px -3px color-mix(in srgb, #000 6%, transparent),
+                   0 4px 6px color-mix(in srgb, #000 3%, transparent);
+      --shadow-xl: 0 20px 25px -5px color-mix(in srgb, #000 7%, transparent),
+                   0 10px 10px -5px color-mix(in srgb, #000 2%, transparent);
+    }
+  }
+
+  /* Cards: elevated with soft shadow for 3D appearance */
+  [data-slot="card"],
+  .card {
+    @apply shadow-sm;
+  }
+
+  /* Interactive elements: hover state with subtle depth */
+  button:hover:not(:disabled),
+  a:hover,
+  [role="button"]:hover {
+    @apply shadow-md;
+  }
+}
+
+/* 3D input focus ring */
+@layer components {
+  .focus-ring-3d {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 focus:ring-offset-background;
   }
 }
