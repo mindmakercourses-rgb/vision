@@ -33,9 +33,18 @@ import {
   Globe,
   TrendingUp,
   FileText,
-  Clock,
   UserCheck,
   Layers,
+  Printer,
+  Languages,
+  Palette,
+  Smartphone,
+  Heart,
+  ShieldCheck,
+  PackageSearch,
+  FlaskConical,
+  GraduationCap,
+  Network,
 } from "lucide-react"
 
 type NavItem = {
@@ -43,7 +52,6 @@ type NavItem = {
   label: string
   icon: React.ComponentType<{ className?: string }>
   exact?: boolean
-  children?: NavItem[]
 }
 
 const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
@@ -79,6 +87,8 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
       { href: "/app/knowledge-base", label: "Knowledge Base", icon: BookOpen },
       { href: "/app/ai-insights", label: "AI Insights", icon: Sparkles },
       { href: "/app/ai-os", label: "AI Command Center", icon: Brain },
+      { href: "/app/autonomous", label: "Autonomous Mode", icon: Zap },
+      { href: "/app/innovation-lab", label: "Innovation Lab", icon: FlaskConical },
     ],
   },
   {
@@ -86,8 +96,8 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     items: [
       { href: "/app/workflows", label: "Workflow Builder", icon: Workflow },
       { href: "/app/video-workflows", label: "Video Generator", icon: Video },
-      { href: "/app/marketplace", label: "Marketplace", icon: Store },
-      { href: "/app/autonomous", label: "Autonomous Mode", icon: Zap },
+      { href: "/app/marketplace", label: "App Marketplace", icon: Store },
+      { href: "/app/industry-marketplace", label: "Industry Solutions", icon: PackageSearch },
     ],
   },
   {
@@ -96,12 +106,30 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
       { href: "/app/analytics", label: "Analytics", icon: BarChart3 },
       { href: "/app/reports", label: "Reports", icon: FileText },
       { href: "/app/bi", label: "Business Intelligence", icon: TrendingUp },
+      { href: "/app/ai-insights", label: "AI Insights", icon: Sparkles },
+    ],
+  },
+  {
+    label: "Customer Success",
+    items: [
+      { href: "/app/customer-success", label: "Health & Adoption", icon: Heart },
+      { href: "/app/customer-success", label: "Vision Academy", icon: GraduationCap },
+    ],
+  },
+  {
+    label: "Platform",
+    items: [
+      { href: "/app/printing", label: "Printing Center", icon: Printer },
+      { href: "/app/i18n", label: "Languages & i18n", icon: Languages },
+      { href: "/app/white-label", label: "White Label Builder", icon: Palette },
+      { href: "/app/mobile", label: "Mobile & PWA", icon: Smartphone },
     ],
   },
   {
     label: "Developer",
     items: [
       { href: "/app/developer", label: "Developer Platform", icon: Code2 },
+      { href: "/app/qa-platform", label: "QA & Release", icon: ShieldCheck },
     ],
   },
   {
@@ -111,6 +139,7 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
       { href: "/app/billing", label: "Billing & Revenue", icon: CreditCard },
       { href: "/app/security", label: "Security & Compliance", icon: Shield },
       { href: "/app/infrastructure", label: "Infrastructure", icon: Server },
+      { href: "/app/admin", label: "Global Ecosystem", icon: Network },
     ],
   },
   {
@@ -155,7 +184,7 @@ export function SidebarNav() {
               <div className="space-y-0.5">
                 {section.items.map((item) => (
                   <NavLink
-                    key={item.href}
+                    key={item.href + item.label}
                     {...item}
                     active={isActive(item.href, item.exact)}
                   />
