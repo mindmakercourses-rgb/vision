@@ -19,6 +19,28 @@ export const metadata: Metadata = {
   description:
     'Vision is the AI-first CRM for modern teams. Manage customers, companies, and deals with intelligent automation.',
   generator: 'v0.app',
+  icons: {
+    icon: '/vision-logo.png',
+    shortcut: '/vision-logo.png',
+    apple: '/vision-logo.png',
+  },
+  openGraph: {
+    title: 'Vision CRM — AI SaaS Platform',
+    description:
+      'Vision is the AI-first CRM for modern teams. Manage customers, companies, and deals with intelligent automation.',
+    url: 'https://vision-crm.app',
+    siteName: 'Vision CRM',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vision CRM - AI-first Customer Relationship Management',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export const viewport: Viewport = {
