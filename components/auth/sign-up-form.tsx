@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
+import { signUpAction } from "@/app/auth/actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -21,46 +21,19 @@ export function SignUpForm() {
     setLoading(true)
     setError(null)
 
-    const supabase = createClient()
+    // Sign up via a server action that creates a pre-confirmed user with the
+    // admin API. No confirmation email is sent, so there is no rate limit and
+    // the user is signed in immediately.
+    const result = await signUpAction({ fullName, email, password })
 
-    // The confirmation link is clicked from an external email client, so it must
-    // always point to a publicly reachable URL — never localhost. Always prefer
-    // NEXT_PUBLIC_SITE_URL (the deployed app), only falling back to the current
-    // origin when the env var is somehow unavailable.
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
-    const emailRedirectTo = `${siteUrl}/auth/callback`
-
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo,
-        data: { full_name: fullName },
-      },
-    })
-
-    if (error) {
-      if (error.message.toLowerCase().includes("password")) {
-        setError(error.message)
-      } else if (error.status === 429) {
-        setError("Too many attempts. Please wait a moment and try again.")
-      } else if (error.message.toLowerCase().includes("already")) {
-        setError("An account with this email may already exist. Try signing in.")
-      } else {
-        setError("Something went wrong. Please try again.")
-      }
+    if (!result.success) {
+      setError(result.error)
       setLoading(false)
       return
     }
 
-    // If the session exists immediately (email confirmation disabled), go to onboarding.
-    if (data.session) {
-      router.push("/app")
-      router.refresh()
-      return
-    }
-
-    router.push("/auth/sign-up-success")
+    router.push("/app")
+    router.refresh()
   }
 
   return (
