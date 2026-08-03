@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { Contact, CONTACT_STATUS_COLORS, LIFECYCLE_STAGE_COLORS } from '@/lib/types'
 import { listContacts, createContact, deleteContact } from '@/app/actions/contacts'
-import { useAppContext } from '@/app/app/layout'
+import { useAppContext } from '@/app/app/app-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -56,8 +56,8 @@ export function ContactsTable() {
       const result = await createContact(org.id, {
         first_name: newContact.first_name,
         last_name: newContact.last_name,
-        email: newContact.email || null,
-        phone: newContact.phone || null,
+        email: newContact.email || undefined,
+        phone: newContact.phone || undefined,
         status: 'prospect',
         lifecycle_stage: 'lead',
       })
@@ -103,7 +103,7 @@ export function ContactsTable() {
           />
         </div>
         <div className="flex items-center gap-2">
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <Select value={statusFilter || ''} onValueChange={(v) => setStatusFilter(v || '')}>
             <SelectTrigger className="w-40">
               <SelectValue placeholder="All statuses" />
             </SelectTrigger>

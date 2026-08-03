@@ -6,6 +6,25 @@ import { Contact } from '@/lib/types'
 
 type ActionResult = { ok: true; data?: Contact } | { ok: false; error: string }
 
+export async function listContacts(orgId: string, search?: string, status?: string): Promise<Contact[]> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.rpc('list_org_contacts', {
+    p_org: orgId,
+    p_limit: 100,
+    p_offset: 0,
+    p_search: search || null,
+    p_status: status || null,
+  })
+
+  if (error) {
+    console.error('[v0] listContacts error:', error)
+    return []
+  }
+
+  return (data || []) as Contact[]
+}
+
 export async function createContact(orgId: string, contact: Partial<Contact>): Promise<ActionResult> {
   const supabase = await createClient()
   const user = await supabase.auth.getUser()
