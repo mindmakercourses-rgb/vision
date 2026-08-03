@@ -16,7 +16,7 @@ export default async function HomePage() {
   return (
     <div className="flex min-h-svh flex-col">
       <header className="flex items-center justify-between border-b border-border px-6 py-4 lg:px-10">
-        <VisionLogo />
+        <VisionLogo compact withText />
         <div className="flex items-center gap-2">
           <Button asChild variant="ghost" size="sm">
             <Link href="/auth/login">Sign in</Link>
