@@ -23,11 +23,9 @@ export function SignUpForm() {
 
     const supabase = createClient()
 
-    // Use NEXT_PUBLIC_SITE_URL for production, fallback to window.location.origin for local dev
-    // In client components, process.env values must be static and known at build time
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
-    const emailRedirectTo = `${siteUrl}/auth/callback`
-    console.log("[v0] Email redirect URL:", emailRedirectTo)
+    // Build the redirect URL using current origin
+    // The redirect URL should match what's configured in Supabase dashboard
+    const emailRedirectTo = `${window.location.origin}/auth/callback`
 
     const { data, error } = await supabase.auth.signUp({
       email,
