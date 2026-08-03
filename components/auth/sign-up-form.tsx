@@ -23,9 +23,11 @@ export function SignUpForm() {
 
     const supabase = createClient()
 
-    // Always use NEXT_PUBLIC_SITE_URL if available for email confirmation links
-    // This ensures email confirmation works from external email clients
-    const emailRedirectTo = `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/auth/callback`
+    // Use NEXT_PUBLIC_SITE_URL for production, fallback to window.location.origin for local dev
+    // In client components, process.env values must be static and known at build time
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+    const emailRedirectTo = `${siteUrl}/auth/callback`
+    console.log("[v0] Email redirect URL:", emailRedirectTo)
 
     const { data, error } = await supabase.auth.signUp({
       email,
