@@ -6,6 +6,7 @@ import { VisionLogo } from "@/components/vision-logo"
 import { SidebarNav } from "@/components/app/sidebar-nav"
 import { OrgSwitcher } from "@/components/app/org-switcher"
 import { UserMenu } from "@/components/app/user-menu"
+import { Breadcrumb } from "@/components/app/breadcrumb"
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const user = await getCurrentUser()
@@ -39,10 +40,8 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-3 md:hidden">
             <VisionLogo />
           </div>
-          <div className="hidden md:block">
-            <p className="text-sm text-muted-foreground">
-              {active.name} <span className="text-muted-foreground/50">/ Dashboard</span>
-            </p>
+          <div className="hidden min-w-0 md:block">
+            <Breadcrumb orgName={active.name} />
           </div>
           <UserMenu name={fullName} email={email} />
         </header>
