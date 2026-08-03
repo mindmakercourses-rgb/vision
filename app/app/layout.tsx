@@ -27,8 +27,12 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       <div className="flex min-h-svh bg-background">
         {/* Sidebar */}
         <aside className="hidden w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar md:flex">
-          <div className="flex h-14 items-center border-b border-sidebar-border px-4">
-            <VisionLogo />
+          <div className="flex h-14 items-center border-b border-sidebar-border px-4 gap-3">
+            <VisionLogo compact />
+            <div className="flex flex-col leading-tight min-w-0">
+              <span className="text-sm font-bold text-sidebar-foreground truncate">Vision CRM</span>
+              <span className="text-xs text-muted-foreground truncate">AI SaaS Platform</span>
+            </div>
           </div>
           <div className="p-3">
             <OrgSwitcher orgs={orgs} active={active} />

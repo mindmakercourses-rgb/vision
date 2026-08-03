@@ -20,7 +20,12 @@ export function VisionLogo({ className, compact = false, withText = false }: Vis
           priority
           className="h-12 w-12 object-contain"
         />
-        {withText && <span className="text-lg font-bold text-foreground">Vision CRM</span>}
+        {withText && (
+          <div className="flex flex-col leading-tight">
+            <span className="text-base font-bold text-foreground">Vision CRM</span>
+            <span className="text-xs text-muted-foreground">AI SaaS Platform</span>
+          </div>
+        )}
       </div>
     )
   }
