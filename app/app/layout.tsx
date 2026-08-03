@@ -39,11 +39,13 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         {/* Main */}
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4 lg:px-6">
-            <div className="flex items-center gap-3 md:hidden">
-              <VisionLogo />
-            </div>
-            <div className="hidden min-w-0 md:block">
-              <Breadcrumb orgName={active.name} />
+            <div className="flex items-center gap-6 md:gap-4">
+              <div className="flex items-center gap-3 md:hidden">
+                <VisionLogo compact withText />
+              </div>
+              <div className="hidden min-w-0 md:block">
+                <Breadcrumb orgName={active.name} />
+              </div>
             </div>
             <UserMenu name={fullName} email={email} />
           </header>
