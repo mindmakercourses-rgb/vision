@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Vision CRM — AI-first customer relationships',
+  title: 'Vision CRM – AI SaaS Platform',
   description:
-    'Vision is the AI-first CRM for modern teams. Manage customers, companies, and deals with intelligent automation.',
+    'Vision CRM is the AI SaaS Platform for modern enterprises. Manage customers, automate sales, communicate across channels, and leverage AI agents — all in one platform.',
   generator: 'v0.app',
   icons: {
     icon: '/vision-logo.png',
@@ -25,17 +25,17 @@ export const metadata: Metadata = {
     apple: '/vision-logo.png',
   },
   openGraph: {
-    title: 'Vision CRM — AI SaaS Platform',
+    title: 'Vision CRM – AI SaaS Platform',
     description:
-      'Vision is the AI-first CRM for modern teams. Manage customers, companies, and deals with intelligent automation.',
+      'Vision CRM is the AI SaaS Platform for modern enterprises. Manage customers, automate sales, communicate across channels, and leverage AI agents — all in one platform.',
     url: 'https://vision-crm.app',
-    siteName: 'Vision CRM',
+    siteName: 'Vision CRM – AI SaaS Platform',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Vision CRM - AI-first Customer Relationship Management',
+        alt: 'Vision CRM – AI SaaS Platform',
       },
     ],
     locale: 'en_US',

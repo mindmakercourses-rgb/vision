@@ -2,38 +2,204 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Users, Building2, Handshake, Settings, Sparkles } from "lucide-react"
+import {
+  LayoutDashboard,
+  Users,
+  Building2,
+  Handshake,
+  Sparkles,
+  Settings,
+  MessageSquare,
+  Mail,
+  Phone,
+  Bot,
+  BookOpen,
+  Workflow,
+  BarChart3,
+  Shield,
+  Server,
+  CreditCard,
+  Store,
+  Code2,
+  Inbox,
+  Video,
+  Brain,
+  Zap,
+  Target,
+  ChevronDown,
+  ChevronRight,
+  Globe,
+  TrendingUp,
+  FileText,
+  UserCheck,
+  Layers,
+  Printer,
+  Languages,
+  Palette,
+  Smartphone,
+  Heart,
+  ShieldCheck,
+  PackageSearch,
+  FlaskConical,
+  GraduationCap,
+  Network,
+  Wand2,
+  Wrench,
+  MemoryStick,
+} from "lucide-react"
 
-const NAV = [
-  { href: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/app/contacts", label: "Contacts", icon: Users },
-  { href: "/app/companies", label: "Companies", icon: Building2 },
-  { href: "/app/deals", label: "Deals", icon: Handshake },
-  { href: "/app/insights", label: "AI Insights", icon: Sparkles },
+type NavItem = {
+  href: string
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  exact?: boolean
+}
+
+const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
+  {
+    label: "Workspace",
+    items: [
+      { href: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
+    ],
+  },
+  {
+    label: "CRM",
+    items: [
+      { href: "/app/contacts", label: "Contacts", icon: Users },
+      { href: "/app/companies", label: "Companies", icon: Building2 },
+      { href: "/app/leads", label: "Leads", icon: Target },
+      { href: "/app/deals", label: "Deals & Pipeline", icon: Handshake },
+    ],
+  },
+  {
+    label: "Communication",
+    items: [
+      { href: "/app/inbox", label: "Unified Inbox", icon: Inbox },
+      { href: "/app/whatsapp", label: "WhatsApp AI", icon: MessageSquare },
+      { href: "/app/email", label: "Email AI", icon: Mail },
+      { href: "/app/voice", label: "Voice AI", icon: Phone },
+      { href: "/app/call-center", label: "Call Center", icon: UserCheck },
+    ],
+  },
+  {
+    label: "AI Platform",
+    items: [
+      { href: "/app/ai-agents", label: "AI Agents Studio", icon: Bot },
+      { href: "/app/prompt-studio", label: "Prompt Studio", icon: Wand2 },
+      { href: "/app/ai-tools", label: "AI Tools Studio", icon: Wrench },
+      { href: "/app/ai-memory", label: "AI Memory Studio", icon: MemoryStick },
+      { href: "/app/knowledge-base", label: "Knowledge Base", icon: BookOpen },
+      { href: "/app/ai-os", label: "AI Command Center", icon: Brain },
+      { href: "/app/autonomous", label: "Autonomous Mode", icon: Zap },
+      { href: "/app/innovation-lab", label: "Innovation Lab", icon: FlaskConical },
+    ],
+  },
+  {
+    label: "Automation",
+    items: [
+      { href: "/app/workflows", label: "Workflow Builder", icon: Workflow },
+      { href: "/app/video-workflows", label: "Video Generator", icon: Video },
+      { href: "/app/marketplace", label: "App Marketplace", icon: Store },
+      { href: "/app/industry-marketplace", label: "Industry Solutions", icon: PackageSearch },
+    ],
+  },
+  {
+    label: "Analytics",
+    items: [
+      { href: "/app/analytics", label: "Analytics", icon: BarChart3 },
+      { href: "/app/reports", label: "Reports", icon: FileText },
+      { href: "/app/bi", label: "Business Intelligence", icon: TrendingUp },
+      { href: "/app/ai-insights", label: "AI Insights", icon: Sparkles },
+      { href: "/app/ai-insights", label: "Executive Dashboard", icon: TrendingUp },
+    ],
+  },
+  {
+    label: "Customer Success",
+    items: [
+      { href: "/app/customer-success", label: "Health & Adoption", icon: Heart },
+      { href: "/app/customer-success", label: "Vision Academy", icon: GraduationCap },
+    ],
+  },
+  {
+    label: "Platform",
+    items: [
+      { href: "/app/printing", label: "Printing Center", icon: Printer },
+      { href: "/app/i18n", label: "Languages & i18n", icon: Languages },
+      { href: "/app/white-label", label: "White Label Builder", icon: Palette },
+      { href: "/app/mobile", label: "Mobile & PWA", icon: Smartphone },
+    ],
+  },
+  {
+    label: "Developer",
+    items: [
+      { href: "/app/developer", label: "Developer Platform", icon: Code2 },
+      { href: "/app/qa-platform", label: "QA & Release", icon: ShieldCheck },
+    ],
+  },
+  {
+    label: "Platform Admin",
+    items: [
+      { href: "/app/admin", label: "Global Admin", icon: Globe },
+      { href: "/app/billing", label: "Billing & Revenue", icon: CreditCard },
+      { href: "/app/security", label: "Security & Compliance", icon: Shield },
+      { href: "/app/infrastructure", label: "Infrastructure", icon: Server },
+      { href: "/app/admin", label: "Global Ecosystem", icon: Network },
+    ],
+  },
+  {
+    label: "Manage",
+    items: [
+      { href: "/app/settings/members", label: "Members", icon: Settings },
+      { href: "/app/onboarding-wizard", label: "Setup Wizard", icon: Layers },
+    ],
+  },
 ]
 
 export function SidebarNav() {
   const pathname = usePathname()
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
 
   function isActive(href: string, exact?: boolean) {
     return exact ? pathname === href : pathname === href || pathname.startsWith(href + "/")
   }
 
-  return (
-    <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
-      <p className="px-2.5 pb-1 text-xs font-medium text-muted-foreground">Workspace</p>
-      {NAV.map((item) => (
-        <NavLink key={item.href} {...item} active={isActive(item.href, item.exact)} />
-      ))}
+  function toggleSection(label: string) {
+    setCollapsed((prev) => ({ ...prev, [label]: !prev[label] }))
+  }
 
-      <p className="mt-4 px-2.5 pb-1 text-xs font-medium text-muted-foreground">Manage</p>
-      <NavLink
-        href="/app/settings/members"
-        label="Members"
-        icon={Settings}
-        active={isActive("/app/settings")}
-      />
+  return (
+    <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-2">
+      {NAV_SECTIONS.map((section) => {
+        const isCollapsed = collapsed[section.label]
+        return (
+          <div key={section.label} className="mb-1">
+            <button
+              onClick={() => toggleSection(section.label)}
+              className="flex w-full items-center justify-between px-2.5 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <span>{section.label}</span>
+              {isCollapsed ? (
+                <ChevronRight className="size-3" />
+              ) : (
+                <ChevronDown className="size-3" />
+              )}
+            </button>
+            {!isCollapsed && (
+              <div className="space-y-0.5">
+                {section.items.map((item) => (
+                  <NavLink
+                    key={item.href + item.label}
+                    {...item}
+                    active={isActive(item.href, item.exact)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      })}
     </nav>
   )
 }
@@ -60,7 +226,7 @@ function NavLink({
       )}
     >
       <Icon className="size-4 shrink-0" />
-      {label}
+      <span className="truncate">{label}</span>
     </Link>
   )
 }

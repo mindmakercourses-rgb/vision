@@ -15,12 +15,17 @@ export function VisionLogo({ className, compact = false, withText = false }: Vis
         <Image
           src="/vision-logo.png"
           alt="Vision CRM"
-          width={48}
-          height={48}
+          width={32}
+          height={32}
           priority
-          className="h-12 w-12 object-contain"
+          className="h-8 w-8 object-contain shrink-0"
         />
-        {withText && <span className="text-lg font-bold text-foreground">Vision CRM</span>}
+        {withText && (
+          <div className="flex flex-col leading-tight">
+            <span className="text-base font-bold text-foreground">Vision CRM</span>
+            <span className="text-xs text-muted-foreground">AI SaaS Platform</span>
+          </div>
+        )}
       </div>
     )
   }
