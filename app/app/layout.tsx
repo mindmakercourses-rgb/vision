@@ -7,6 +7,7 @@ import { SidebarNav } from "@/components/app/sidebar-nav"
 import { OrgSwitcher } from "@/components/app/org-switcher"
 import { UserMenu } from "@/components/app/user-menu"
 import { Breadcrumb } from "@/components/app/breadcrumb"
+import { AppContextProvider } from "./app-context"
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const user = await getCurrentUser()
@@ -22,31 +23,33 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   const email = user.email ?? ""
 
   return (
-    <div className="flex min-h-svh bg-background">
-      {/* Sidebar */}
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar md:flex">
-        <div className="flex h-14 items-center border-b border-sidebar-border px-4">
-          <VisionLogo />
-        </div>
-        <div className="p-3">
-          <OrgSwitcher orgs={orgs} active={active} />
-        </div>
-        <SidebarNav />
-      </aside>
-
-      {/* Main */}
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4 lg:px-6">
-          <div className="flex items-center gap-3 md:hidden">
+    <AppContextProvider org={active}>
+      <div className="flex min-h-svh bg-background">
+        {/* Sidebar */}
+        <aside className="hidden w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar md:flex">
+          <div className="flex h-14 items-center border-b border-sidebar-border px-4">
             <VisionLogo />
           </div>
-          <div className="hidden min-w-0 md:block">
-            <Breadcrumb orgName={active.name} />
+          <div className="p-3">
+            <OrgSwitcher orgs={orgs} active={active} />
           </div>
-          <UserMenu name={fullName} email={email} />
-        </header>
-        <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
+          <SidebarNav />
+        </aside>
+
+        {/* Main */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4 lg:px-6">
+            <div className="flex items-center gap-3 md:hidden">
+              <VisionLogo />
+            </div>
+            <div className="hidden min-w-0 md:block">
+              <Breadcrumb orgName={active.name} />
+            </div>
+            <UserMenu name={fullName} email={email} />
+          </header>
+          <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
+        </div>
       </div>
-    </div>
+    </AppContextProvider>
   )
 }

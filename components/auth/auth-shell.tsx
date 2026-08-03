@@ -16,7 +16,7 @@ export function AuthShell({
     <main className="grid min-h-svh lg:grid-cols-2">
       {/* Form column */}
       <div className="flex flex-col p-6 lg:p-10">
-        <VisionLogo />
+        <VisionLogo compact />
         <div className="flex flex-1 items-center justify-center py-10">
           <div className="w-full max-w-sm">
             <div className="mb-8 space-y-2">
@@ -31,9 +31,9 @@ export function AuthShell({
       </div>
 
       {/* Brand column */}
-      <div className="relative hidden overflow-hidden border-l border-border bg-sidebar lg:block">
+      <div className="relative hidden overflow-hidden border-l border-border bg-gradient-to-br from-blue-50 via-white to-blue-50 lg:block">
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
               "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
