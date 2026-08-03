@@ -23,15 +23,11 @@ export function SignUpForm() {
 
     const supabase = createClient()
 
-    // Use NEXT_PUBLIC_SITE_URL for production redirect (e.g. https://vision-crm-weld.vercel.app)
-    // Fallback to window.location.origin for local development
-    // This ensures email confirmation links work from external email clients
-    const siteUrl = typeof window !== "undefined" 
-      ? (process.env.NEXT_PUBLIC_SITE_URL && !window.location.origin.includes("localhost"))
-        ? process.env.NEXT_PUBLIC_SITE_URL
-        : window.location.origin
-      : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-    
+    // The confirmation link is clicked from an external email client, so it must
+    // always point to a publicly reachable URL — never localhost. Always prefer
+    // NEXT_PUBLIC_SITE_URL (the deployed app), only falling back to the current
+    // origin when the env var is somehow unavailable.
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
     const emailRedirectTo = `${siteUrl}/auth/callback`
 
     const { data, error } = await supabase.auth.signUp({
