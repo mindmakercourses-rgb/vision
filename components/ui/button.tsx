@@ -46,27 +46,28 @@ function Button({
   variant = 'default',
   size = 'default',
   asChild = false,
-  render,
   children,
   ...props
 }: ButtonPrimitive.Props &
   VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
-  // Support shadcn-style `asChild` by mapping the single child onto Base UI's
-  // `render` prop, which merges the button's props onto that element.
-  const resolvedRender =
-    render ?? (asChild && React.isValidElement(children) ? (children as React.ReactElement) : undefined)
+  const classes = cn(buttonVariants({ variant, size, className }))
+
+  // Support shadcn-style `asChild`: merge button styling directly onto the
+  // single child element (e.g. a Next.js <Link>) instead of rendering a
+  // native <button>. This is the Slot pattern and avoids Base UI's
+  // native-button semantics warning entirely.
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ className?: string }>
+    return React.cloneElement(child, {
+      "data-slot": "button",
+      className: cn(classes, child.props.className),
+      ...props,
+    } as React.HTMLAttributes<HTMLElement>)
+  }
 
   return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      render={resolvedRender}
-      // When rendering a non-<button> element (e.g. an anchor via `asChild`),
-      // disable native button semantics so Base UI doesn't warn.
-      nativeButton={resolvedRender ? false : undefined}
-      {...props}
-    >
-      {resolvedRender ? undefined : children}
+    <ButtonPrimitive data-slot="button" className={classes} {...props}>
+      {children}
     </ButtonPrimitive>
   )
 }
